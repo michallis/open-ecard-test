@@ -45,6 +45,8 @@ import org.openecard.ifd.protocol.pace.gui.GUIContentMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.DatatypeConverter;
+
 
 /**
  *
@@ -55,7 +57,9 @@ public class PACEProtocol implements Protocol {
     private static final Logger logger = LoggerFactory.getLogger(PACEProtocol.class.getName());
 
     private SecureMessaging sm;
-
+	private static String bytesToHex(byte[] bytes) {
+		return DatatypeConverter.printHexBinary(bytes);
+	}
     @Override
     public EstablishChannelResponse establish(EstablishChannel req, Dispatcher dispatcher, UserConsent gui) {
 	EstablishChannelResponse response = new EstablishChannelResponse();
@@ -87,8 +91,8 @@ public class PACEProtocol implements Protocol {
 
 	    // Read EF.CardAccess from card
 	    byte[] slotHandle = req.getSlotHandle();
-	    CardResponseAPDU resp = CardUtils.selectFileWithOptions(dispatcher, slotHandle,
-		    ShortUtils.toByteArray(PACEConstants.EF_CARDACCESS_FID), null, CardUtils.FCP_RESPONSE_DATA);
+	    CardResponseAPDU resp = CardUtils.selectFileWithOptions(dispatcher, slotHandle, ShortUtils.toByteArray(PACEConstants.EF_CARDACCESS_FID), null, CardUtils.LUX_RESPONSE_DATA);
+		System.out.println("select file with options response: "+bytesToHex(resp.getData()));
 	    FCP efCardAccessFCP = new FCP(TLV.fromBER(resp.getData()));
 	    byte[] efcadata = CardUtils.readFile(efCardAccessFCP, dispatcher, slotHandle);
 

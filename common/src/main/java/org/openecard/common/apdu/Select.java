@@ -41,6 +41,7 @@ public class Select extends CardCommandAPDU {
     private static final byte FCI = (byte) 0x00;
     private static final byte FCP = (byte) 0x04;
     private static final byte FMD = (byte) 0x08;
+	private static final byte LUX = (byte) 0x00;
 
     /**
      * Creates a new Select APDU.
@@ -75,6 +76,11 @@ public class Select extends CardCommandAPDU {
 	setP2(FMD);
 	setLE(xFF);
     }
+
+    public void setLUX() {
+		setP2(LUX);
+		setLE(x02);
+	}
 
     /**
      * Implements a Select APDU to select the Master File.

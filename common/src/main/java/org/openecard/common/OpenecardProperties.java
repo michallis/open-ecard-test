@@ -70,7 +70,7 @@ public class OpenecardProperties {
 	    _logger.info("Failed to load properties from config dir.", ex);
 	}
 	try {
-	    properties = new OverridingProperties(bundledProps, homeProps);
+ 	    properties = new OverridingProperties(bundledProps, homeProps);
 	} catch (IOException ex) {
 	    // in that case a null pointer occurs when properties is accessed
 	    _logger.error(ex.getMessage(), ex);

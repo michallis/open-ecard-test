@@ -40,6 +40,8 @@ class CardAPDU {
      */
     protected static final byte xFF = (byte) 0xFF;
     // TODO: make field inaccessible
+
+    protected static final byte x02 = (byte) 0x02;
     /**
      * Data field of the APDU.
      */

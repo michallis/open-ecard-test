@@ -36,6 +36,7 @@ class PACEConstants {
 
     // EF.CardAccess file identifier
     public static final short EF_CARDACCESS_FID = (short) 0x011C;
+
     // PACE password types
     public static final byte PASSWORD_MRZ = (byte) 0x01;
     public static final byte PASSWORD_CAN = (byte) 0x02;
@@ -57,18 +58,18 @@ class PACEConstants {
 
     public static final List<String> SUPPORTED_PACE_PROTOCOLS = Arrays.asList(
             //PACEObjectIdentifier.id_PACE_ECDH_GM_AES_CBC_CMAC_128
-            PACEObjectIdentifier.id_PACE_ECDH_IM_AES_CBC_CMAC_256
+            PACEObjectIdentifier.id_PACE_ECDH_GM_AES_CBC_CMAC_256
     );
     public static final List<Integer> SUPPORTED_PACE_DOMAIN_PARAMS = Arrays.asList(
-/*	    10, // NIST P-224 (secp224r1)
+	    10, // NIST P-224 (secp224r1)
 	    11, // BrainpoolP224r1
 	    12, // NIST P-256 (secp256r1)
 	    13, // BrainpoolP256r1
 	    14, // BrainpoolP320r1
-	    15, // NIST P-384 (secp384r1)*/
-	    16 // BrainpoolP384r1
-/*	    17, // BrainpoolP512r1
-	    18  // NIST P-521 (secp521r1)*/
+	    15, // NIST P-384 (secp384r1)
+	    16, // BrainpoolP384r1
+	    17, // BrainpoolP512r1
+	    18  // NIST P-521 (secp521r1)
     );
 
 }
