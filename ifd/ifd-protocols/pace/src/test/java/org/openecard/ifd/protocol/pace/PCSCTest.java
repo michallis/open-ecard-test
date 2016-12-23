@@ -31,6 +31,7 @@ import javax.smartcardio.CardTerminals;
 import javax.smartcardio.CommandAPDU;
 import javax.smartcardio.ResponseAPDU;
 import javax.smartcardio.TerminalFactory;
+
 import org.openecard.common.util.ByteUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +39,6 @@ import org.testng.annotations.Test;
 
 
 /**
- *
  * @author Moritz Horsch
  */
 public class PCSCTest {
@@ -46,48 +46,61 @@ public class PCSCTest {
     private static final Logger logger = LoggerFactory.getLogger(PCSCTest.class);
     private CardChannel connection;
 
+    public static void main(String[] args) {
+        PCSCTest test = new PCSCTest();
+        test.PCSCTest();
+    }
+
     @Test(enabled = false)
     public void PCSCTest() {
-	connect();
+        connect();
 
-	byte[] selectmf = new byte[]{(byte) 0x00, (byte) 0xA4, (byte) 0x00, (byte) 0x0C, (byte) 0x02, (byte) 0x3F, (byte) 0x00};
-	try {
-	    logger.info("Send APDU {}", ByteUtils.toHexString(selectmf));
-	    ResponseAPDU response = connection.transmit(new CommandAPDU(selectmf));
-	    logger.info("Receive APDU {}", ByteUtils.toHexString(response.getBytes()));
-	} catch (CardException ex) {
-	    logger.error(ex.getMessage(), ex);
-	}
+        //00 A4 04 00 0C A0 00 00 00 18 40 00 00 01 63 42 00 00
+        byte[] selectGemaltoApplet = new byte[]{
+                (byte) 0x00, (byte) 0xA4, (byte) 0x04, (byte) 0x00, (byte) 0x0C, (byte) 0xA0, (byte) 0x00, (byte) 0x00, (byte) 0x00,
+                (byte) 0x18, (byte) 0x40, (byte) 0x00, (byte) 0x00, (byte) 0x01, (byte) 0x63, (byte) 0x42, (byte) 0x00, (byte) 0x00
+        };
+
+        byte[] selectmf = new byte[]{(byte) 0x00, (byte) 0xA4, (byte) 0x00, (byte) 0x00, (byte) 0x02, (byte) 0x3F, (byte) 0x00, (byte) 0x00};
+        try {
+            logger.info("Send APDU {}", ByteUtils.toHexString(selectGemaltoApplet));
+            ResponseAPDU response = connection.transmit(new CommandAPDU(selectGemaltoApplet));
+            logger.info("Receive APDU {}", ByteUtils.toHexString(response.getBytes()));
+        } catch (CardException ex) {
+            logger.error(ex.getMessage(), ex);
+        }
     }
 
     private void connect() {
-	try {
+        try {
+
 //            File libPcscLite = new File("/usr/lib/libpcsclite.so.1");
 //            if (libPcscLite.exists()) {
 //                System.setProperty("sun.security.smartcardio.library", libPcscLite.getAbsolutePath());
 //            }
-	    TerminalFactory t = TerminalFactory.getInstance("PC/SCs", null);
-//            TerminalFactory t = TerminalFactory.getDefault();
-	    CardTerminals c = t.terminals();
-	    logger.info("Card terminals: {}", c.list().size());
+//	    TerminalFactory t = TerminalFactory.getInstance("PC/SCs", null);
 
-	    List terminals = c.list();
-	    if (terminals.isEmpty()) {
-		logger.info("No presend cards!");
-	    } else {
-		for (int i = 0; i < terminals.size(); i++) {
-		    CardTerminal ct = (CardTerminal) terminals.get(i);
-		    if (ct.isCardPresent()) {
-			Card card = ct.connect("*");
-			connection = card.getBasicChannel();
-			logger.info("Card found at card terminal " + i + ": ", card.toString());
-		    }
-		}
-	    }
+            TerminalFactory t = TerminalFactory.getDefault();
+            CardTerminals c = t.terminals();
+            logger.info("Card terminals: {}", c.list().size());
 
-	} catch (Exception ex) {
-	    logger.error(ex.getMessage(), ex);
-	}
+            List terminals = c.list();
+            if (terminals.isEmpty()) {
+                logger.info("No presend cards!");
+            } else {
+                for (int i = 0; i < terminals.size(); i++) {
+                    CardTerminal ct = (CardTerminal) terminals.get(i);
+                    if (ct.isCardPresent()) {
+                        Card card = ct.connect("*");
+                        connection = card.getBasicChannel();
+                        logger.info("Card found at card terminal " + i + ": ", card.toString());
+                    }
+                }
+            }
+
+        } catch (Exception ex) {
+            logger.error(ex.getMessage(), ex);
+        }
     }
 
 }

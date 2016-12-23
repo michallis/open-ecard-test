@@ -53,6 +53,16 @@ public class PACETest {
 
     private static final Logger logger = LoggerFactory.getLogger(PACETest.class);
 
+    public static void main(String []args){
+		PACETest paceTest = new PACETest();
+		try {
+			paceTest.executePACE_PIN();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+
     @Test(enabled = false)
     public void executePACE_PIN() throws UnsupportedDataTypeException, JAXBException, SAXException, WSMarshallerException {
 	ClientEnv env = new ClientEnv();

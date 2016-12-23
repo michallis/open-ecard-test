@@ -7,9 +7,10 @@
 	</encoder>
     </appender>
 
-    <logger name="org.openecard.ifd.scio.wrapper.SCChannel" level="DEBUG" />
+    <!--<logger name="org.openecard.ifd.scio.wrapper.SCChannel" level="DEBUG" />-->
+    <logger name="org.openecard.ifd" level="DEBUG" />
 
-    <root level="WARN">
+    <root level="DEBUG">
 	<appender-ref ref="STDOUT" />
     </root>
 

@@ -48,7 +48,6 @@
 		<module>gui</module>
 		<module>ifd</module>
 		<module>sal</module>
-		<module>management</module>
 		<module>cifs</module>
 		<module>recognition</module>
 		<module>event-manager</module>
@@ -80,37 +79,17 @@
 		<sign.tsa>https://timestamp.geotrust.com/tsa</sign.tsa>
 	</properties>
 
+	<!-- repository to deploy to -->
 	<distributionManagement>
-		<site>
-			<id>Open eCard Website</id>
-			<url>https://dev.openecard.org/TODO</url>
-		</site>
 		<repository>
-			<id>openecard-repos</id>
-			<name>Openecard Release Repo</name>
-			<url>https://mvn.ecsec.de/content/repositories/openecard-release</url>
+			<id>Releases</id>
+			<url>http://oasis.t1t.be/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>openecard-repos</id>
-			<name>Openecard Snapshot Repo</name>
-			<url>https://mvn.ecsec.de/content/repositories/openecard-snapshot</url>
+			<id>Snapshots</id>
+			<url>http://oasis.t1t.be/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-
-	<repositories>
-		<repository>
-			<id>openecard-repos</id>
-			<name>Openecard Repos</name>
-			<url>https://mvn.ecsec.de/content/groups/openecard-public</url>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>openecard-repos</id>
-			<url>https://mvn.ecsec.de/content/groups/openecard-public</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<profiles>
 		<profile>
@@ -126,7 +105,7 @@
 			<id>ci</id>
 			<build>
 				<plugins>
-					<plugin>
+<!--					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-site-plugin</artifactId>
 						<configuration>
@@ -148,7 +127,7 @@
 								</plugin>
 							</reportPlugins>
 						</configuration>
-					</plugin>
+					</plugin>-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
@@ -190,7 +169,7 @@
 	<build>
 		<pluginManagement>
 			<plugins>
-				<plugin>
+<!--				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>animal-sniffer-maven-plugin</artifactId>
 					<version>1.15</version>
@@ -201,7 +180,7 @@
 							<version>1.0</version>
 						</signature>
 					</configuration>
-				</plugin>
+				</plugin>-->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
@@ -461,7 +440,7 @@
 					<artifactId>maven-shade-plugin</artifactId>
 					<version>2.4.3</version>
 				</plugin>
-				<plugin>
+<!--				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jarsigner-plugin</artifactId>
 					<version>1.4</version>
@@ -472,7 +451,7 @@
 						<keypass>${sign.keypass}</keypass>
 						<tsa>${sign.tsa}</tsa>
 					</configuration>
-				</plugin>
+				</plugin>-->
 				<plugin>
 					<groupId>org.openecard.tools</groupId>
 					<artifactId>pack200-maven-plugin</artifactId>
@@ -486,7 +465,7 @@
 						<dependency>
 							<groupId>org.glassfish.metro</groupId>
 							<artifactId>webservices-tools</artifactId>
-							<version>2.3.1-jsfix</version>
+							<version>2.3.1</version>
 						</dependency>
 						<!-- see https://java.net/jira/browse/WSIT-1672 -->
 						<dependency>
@@ -564,7 +543,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+<!--			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jarsigner-plugin</artifactId>
 				<executions>
@@ -575,7 +554,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 
