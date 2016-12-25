@@ -125,15 +125,21 @@ public class CardUtils {
         Select selectApplet = new Select((byte)0x04,(byte)0x00);
         String LUX_ATR = "A000000018400000016342";
         selectApplet.setData(hexToBytes(LUX_ATR));
-        selectApplet.setLE((short) 0x0000);
+        selectApplet.setLE((short) 0x00);
         List<byte[]> atrResponses = new ArrayList<>();
         atrResponses.add(new byte[]{(byte) 0x69, (byte) 0x99});
         CardResponseAPDU atrResult = selectApplet.transmit(dispatcher, slotHandle,atrResponses);
 
         Select selectFile = new Select((byte) 0x00, (byte) 0x0C);
         selectFile.setData(fileIdOrPath);
-        selectFile.setLE((byte)0xFF);
+        selectFile.setLE((byte)0x00);
+        CardResponseAPDU resultSelectCardAccessEF = null;
+        resultSelectCardAccessEF = selectFile.transmit(dispatcher, slotHandle, responses);
+
         CardResponseAPDU result = null;
+        ReadBinary readBinary = new ReadBinary(true); //override for luxeid
+        readBinary.setLE((short)0x00);
+        result = readBinary.transmit(dispatcher, slotHandle);
 
         // respect the possibility that fileID could be a path
 /*        int i = 0;
@@ -199,7 +205,7 @@ public class CardUtils {
             }
 
         }*/
-        result = selectFile.transmit(dispatcher, slotHandle, responses);
+
         return result;
     }
 

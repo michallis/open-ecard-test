@@ -39,10 +39,6 @@ import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 
 import javax.activation.UnsupportedDataTypeException;
-import javax.smartcardio.CardChannel;
-import javax.smartcardio.CommandAPDU;
-import javax.smartcardio.ResponseAPDU;
-import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.JAXBException;
 import java.math.BigInteger;
 
@@ -98,9 +94,9 @@ public class PACETest {
                 + "  <iso:SlotHandle>" + ByteUtils.toHexString(slotHandle) + "</iso:SlotHandle>\n"
                 + "  <iso:AuthenticationProtocolData Protocol=\"urn:oid:0.4.0.127.0.7.2.2.4\">\n"
                 + "    <iso:PinID>03</iso:PinID>\n"
-                + "    <iso:CHAT>7f4c12060904007f0007030102025305300301ffb7</iso:CHAT>\n"
+                /*+ "    <iso:CHAT>7f4c12060904007f0007030102025305300301ffb7</iso:CHAT>\n"*/
                 // Remove PIN element to active the GUI
-        /*+ "    <iso:PIN>123456</iso:PIN>\n"*/
+                + "    <iso:PIN>123456</iso:PIN>\n"
                 //		+ "    <iso:PIN>123456</iso:PIN>\n"
                 + "  </iso:AuthenticationProtocolData>\n"
                 + "</iso:EstablishChannel>";

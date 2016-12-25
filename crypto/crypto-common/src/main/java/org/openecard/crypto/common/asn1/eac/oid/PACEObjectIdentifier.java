@@ -69,7 +69,7 @@ public class PACEObjectIdentifier extends EACObjectIdentifier {
     /**
      * id-PACE-ECDH-GM-AES-CBC-CMAC-256 OBJECT IDENTIFIER ::= {id-PACE-ECDH-GM 4}
      */
-    public static final String id_PACE_ECDH_GM_AES_CBC_CMAC_256 = id_PACE_ECDH_GM + ".4";
+    public static final String id_PACE_ECDH_GM_AES_CBC_CMAC_256 = id_PACE_ECDH_GM + ".4"; //lux eid card
     /**
      * id-PACE-DH-IM OBJECT IDENTIFIER ::= {id-PACE 3}
      */

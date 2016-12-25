@@ -53,6 +53,10 @@ public class ReadBinary extends CardCommandAPDU {
 	super(x00, READ_BINARY_INS_1, x00, xFF);
     }
 
+    public ReadBinary(boolean lux){
+        super(x00, READ_BINARY_INS_1, x00, x00);
+    }
+
     /**
      * Creates an new READ BINARY APDU.
      *
