@@ -61,7 +61,7 @@ public class FCP {
 
     public FCP(TLV tlv) throws TLVException {
 	this.tlv = tlv;
-	if (tlv.getTagNumWithClass() != 0x62) {
+	if (tlv.getTagNumWithClass() != 0x31) {
 	    throw new TLVException("Data doesn't represent an FCP.");
 	}
 

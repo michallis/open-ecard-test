@@ -22,6 +22,9 @@
 
 package org.openecard.ifd.protocol.pace.crypto;
 
+import org.openecard.bouncycastle.crypto.BlockCipher;
+import org.openecard.bouncycastle.crypto.engines.AESFastEngine;
+import org.openecard.bouncycastle.crypto.params.KeyParameter;
 import org.openecard.bouncycastle.jce.spec.ECParameterSpec;
 import org.openecard.bouncycastle.math.ec.ECPoint;
 import org.openecard.common.util.ByteUtils;
@@ -69,19 +72,25 @@ public final class PACECryptoSuite {
      * @throws GeneralSecurityException
      */
     public byte[] decryptNonce(byte[] keyData, byte[] nonceData) throws GeneralSecurityException {
-        byte[] ret = new byte[16];
+        final byte[] s = new byte[16];
+        final KeyParameter encKey = new KeyParameter(keyData);
+        final BlockCipher cipher = new AESFastEngine();
+        cipher.init(false, encKey);
+        cipher.processBlock(nonceData, 0, s, 0);
+        return s;
+/*        byte[] ret = new byte[32];
         byte[] nonce = ByteUtils.copy(nonceData, 4, nonceData.length - 4);
         try {
             Cipher c = Cipher.getInstance("AES/CBC/NoPadding");
             SecretKeySpec skeySpec = new SecretKeySpec(keyData, "AES");
-            IvParameterSpec params = new IvParameterSpec(new byte[16]);
+            IvParameterSpec params = new IvParameterSpec(new byte[32]);
             c.init(Cipher.DECRYPT_MODE, skeySpec, params);
             c.doFinal(nonce, 0, nonce.length, ret);
         } catch (Throwable e) {
             logger.error(e.getMessage(), e);
             throw new GeneralSecurityException(e);
         }
-        return ret;
+        return ret;*/
     }
 
     /**
@@ -116,14 +125,13 @@ public final class PACECryptoSuite {
      * @return PACE mapping
      */
     public PACEMapping getMapping() {
-/*        if (pi.isGM()) {
+        if (pi.isGM()) {
             return new PACEGenericMapping(domainParameter);
         } else if (pi.isIM()) {
             return new PACEIntegratedMapping(domainParameter);
         } else {
             throw new IllegalArgumentException();
-        }*/
-        return null;
+        }
     }
 
 }
