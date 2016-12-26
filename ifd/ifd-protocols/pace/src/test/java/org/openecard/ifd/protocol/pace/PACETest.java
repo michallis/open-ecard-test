@@ -96,7 +96,7 @@ public class PACETest {
                 + "    <iso:PinID>03</iso:PinID>\n"
                 /*+ "    <iso:CHAT>7f4c12060904007f0007030102025305300301ffb7</iso:CHAT>\n"*/
                 // Remove PIN element to active the GUI
-                + "    <iso:PIN>123456</iso:PIN>\n"
+                + "    <iso:PIN>654321</iso:PIN>\n"
                 //		+ "    <iso:PIN>123456</iso:PIN>\n"
                 + "  </iso:AuthenticationProtocolData>\n"
                 + "</iso:EstablishChannel>";
