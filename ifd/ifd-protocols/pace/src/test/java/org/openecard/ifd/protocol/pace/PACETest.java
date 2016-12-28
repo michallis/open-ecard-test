@@ -79,12 +79,12 @@ public class PACETest {
 
         ListIFDs listIFDs = new ListIFDs();
         listIFDs.setContextHandle(ctxHandle);
-        String ifdName = ifd.listIFDs(listIFDs).getIFDName().get(1);
+        String ifdName = ifd.listIFDs(listIFDs).getIFDName().get(0);
 
         Connect connect = new Connect();
         connect.setContextHandle(ctxHandle);
         connect.setIFDName(ifdName);
-        connect.setSlot(BigInteger.ONE);
+        connect.setSlot(BigInteger.ZERO);
         byte[] slotHandle = ifd.connect(connect).getSlotHandle();
 
 
@@ -96,7 +96,7 @@ public class PACETest {
                 + "    <iso:PinID>03</iso:PinID>\n"
                 /*+ "    <iso:CHAT>7f4c12060904007f0007030102025305300301ffb7</iso:CHAT>\n"*/
                 // Remove PIN element to active the GUI
-                + "    <iso:PIN>654321</iso:PIN>\n"
+                + "    <iso:PIN>123456</iso:PIN>\n"
                 //		+ "    <iso:PIN>123456</iso:PIN>\n"
                 + "  </iso:AuthenticationProtocolData>\n"
                 + "</iso:EstablishChannel>";

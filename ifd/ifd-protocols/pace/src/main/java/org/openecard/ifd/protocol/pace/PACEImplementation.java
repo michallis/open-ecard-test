@@ -39,6 +39,7 @@ import org.openecard.ifd.protocol.pace.crypto.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.DatatypeConverter;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
@@ -68,6 +69,10 @@ public class PACEImplementation {
     private byte retryCounter = 3;
     // true if PACE is used with a CHAT
     private boolean specifiedCHAT;
+
+    private static String bytesToHex(byte[] bytes) {
+        return DatatypeConverter.printHexBinary(bytes);
+    }
 
     /**
      * Creates a new instance of the pace protocol.
@@ -181,6 +186,7 @@ public class PACEImplementation {
 
         try {
             response = gaEncryptedNonce.transmit(dispatcher, slotHandle);
+            logger.info("encryptedNonce:{}",bytesToHex(response.getData()));
             s = cryptoSuite.decryptNonce(keyPI, response.getData());
             // Continue with Step 3
             generalAuthenticateMapNonce();
